@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,400;0,500;1,400&display=swap');
+
+body {
+    background: #dde5f4;
+    font-family: 'Inter Tight', sans-serif !important;
+    
+}
+.container {
+    position: relative;
+}
+.login {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    place-items: center;
+    place-content: center;
+}
+
+.form-content {
+    display: flex;
+    width: 640px;
+    height: 320px;
+}
+
+.left-content {
+    background: white;
+    height: calc(100% - 40px);
+    top: 20px;
+    position: relative;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-content p {
+    margin: 0px 40px;
+}
+
+form {
+    background: #474A59;
+    box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
+    color: #F1F1F2;
+    position: relative;
+    width: 50%;
+}
+
+form .item-form {
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+}
+
+form input {
+    background: transparent;
+    border: 0;
+    color: #f2f2f2;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    outline: none !important;
+    width: 100%;
+    transition: .3s ease all;
+}
+
+form input::placeholder {
+    color: #FFF;
+    opacity: .4;
+    transition: .6s ease all;
+}
+
+form input:focus::placeholder, form input:hover::placeholder {
+    color: #FFF;
+    opacity: .8;
+}
+
+form input:focus, form input:hover {
+    border-bottom: 1px solid #FFF;
+}
+
+form .submit-btn {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    background: #FF5252;
+    color: #FFF;
+    text-transform: uppercase;
+    padding: 20px;
+    border-radius: 2px;
+    transition: .4s ease all;
+    cursor: pointer;
+}
+
+form .submit-btn:hover {
+    background: #fa4646;
+}

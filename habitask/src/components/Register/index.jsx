@@ -1,6 +1,7 @@
 // Ejemplo de Login.js
 import React from "react";
 import useUserStore from "../../store/store";
+import Menulogout from "../MenuLogout/";
 
 const Register = () => {
   const {
@@ -21,6 +22,7 @@ const Register = () => {
 
   return (
     <div>
+      <Menulogout />
       <h2>Register</h2>
       <form className="mt-6" onSubmit={handleSubmit}>
         <div className="flex-1">

@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { toast } from 'react-toastify';
+
 const URL_ENDPOINT =
   "https://6l5cukrr5f.execute-api.us-east-1.amazonaws.com/stage";
 const useUserStore = create((set) => ({
@@ -56,10 +58,9 @@ const useUserStore = create((set) => ({
       });
 
       const data = await response.json();
-      console.log(response, "response");
-      if (response.ok) {
-        const responseParse = JSON.parse(data.body);
-        console.log(responseParse, "responseParse");
+      const responseParse = JSON.parse(data.body);
+      console.log(responseParse, "response");
+      if (responseParse.idUsuario) {
         const mensaje = responseParse.mensaje;
         useUserStore.getState().setMensaje(mensaje);
         sessionStorage.setItem("token", true);
@@ -67,7 +68,7 @@ const useUserStore = create((set) => ({
         window.location.href = "/list-tasks";
         // Puedes hacer otras acciones después de un inicio de sesión exitoso
       } else {
-        useUserStore.getState().setMensaje(data.error);
+        useUserStore.getState().setMensaje(responseParse.error);
       }
     } catch (error) {
       console.error("Error al realizar la petición de login:", error);
@@ -165,6 +166,14 @@ const useUserStore = create((set) => ({
   setNombreTarea: (nombreTarea) => set({ nombreTarea }),
   nombreAsignado: "",
   setNombreAsignado: (nombreAsignado) => set({ nombreAsignado }),
+  showToast: (message, options, type) => {
+    if (type == 'success') {
+      toast.success(message, options);
+    } else if (type == 'error') {
+      toast.error(message, options);
+    }
+    // Puedes agregar más tipos según tus necesidades
+  },
 }));
 
 export default useUserStore;

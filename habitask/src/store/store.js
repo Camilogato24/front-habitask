@@ -1,8 +1,13 @@
 import { create } from "zustand";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const URL_ENDPOINT =
   "https://6l5cukrr5f.execute-api.us-east-1.amazonaws.com/stage";
+
+const initialState = {
+  tareas: [],
+};
+
 const useUserStore = create((set) => ({
   nombre: "",
   email: "",
@@ -12,7 +17,9 @@ const useUserStore = create((set) => ({
   setEmail: (email) => set({ email }),
   setContrasena: (contrasena) => set({ contrasena }),
   setMensaje: (mensaje) => set({ mensaje }),
-  resetForm: () => set({ nombre: "", email: "", contrasena: "", mensaje: "" }),
+  resetForm: () => set({ nombre: "", email: "", contrasena: "" }),
+  resetFormTask: () => set({ nombreTarea: "", nombreAsignado: "" }),
+  resetMensaje: () => set({ mensaje: "" }),
   registerUser: async () => {
     try {
       const response = await fetch(URL_ENDPOINT, {
@@ -59,7 +66,6 @@ const useUserStore = create((set) => ({
 
       const data = await response.json();
       const responseParse = JSON.parse(data.body);
-      console.log(responseParse, "response");
       if (responseParse.idUsuario) {
         const mensaje = responseParse.mensaje;
         useUserStore.getState().setMensaje(mensaje);
@@ -85,6 +91,9 @@ const useUserStore = create((set) => ({
   },
   tareas: [], // Aquí almacenaremos las tareas obtenidas
   setTareas: (tareas) => set({ tareas }),
+  setTarea: (nuevaTarea) => set((state) => ({
+    tareas: [...(state.tareas || []), nuevaTarea],
+  })),
   obtenerTareas: async () => {
     try {
       const tareas = "/tasks";
@@ -130,12 +139,6 @@ const useUserStore = create((set) => ({
     try {
       const tareasEndpoint = "/tasks";
       const userIDValue = sessionStorage.getItem("userID");
-        console.log("userIDValue", userIDValue)
-        console.log("JAJAJAJA", JSON.stringify({
-            titulo: useUserStore.getState().nombreTarea,
-            usuario_asignado_id: useUserStore.getState().setNombreAsignado,
-            usuario_creador_id: userIDValue,
-          }))
       const response = await fetch(URL_ENDPOINT + tareasEndpoint, {
         method: "POST",
         headers: {
@@ -149,13 +152,11 @@ const useUserStore = create((set) => ({
       });
 
       const data = await response.json();
-
-      if (response.ok) {
-        const tareasItem = JSON.parse(data.body);
-        useUserStore.getState().setTareas(tareasItem);
-        // Puedes hacer otras acciones después de un inicio de sesión exitoso
+      const responseParse = JSON.parse(data.body);
+      if (responseParse.tarea) {
+        useUserStore.getState().setMensaje(responseParse.mensaje);
       } else {
-        useUserStore.getState().setMensaje(data.error);
+        useUserStore.getState().setMensaje("Error");
       }
     } catch (error) {
       console.error("Error al realizar la petición:", error);
@@ -167,9 +168,9 @@ const useUserStore = create((set) => ({
   nombreAsignado: "",
   setNombreAsignado: (nombreAsignado) => set({ nombreAsignado }),
   showToast: (message, options, type) => {
-    if (type == 'success') {
+    if (type == "success") {
       toast.success(message, options);
-    } else if (type == 'error') {
+    } else if (type == "error") {
       toast.error(message, options);
     }
     // Puedes agregar más tipos según tus necesidades

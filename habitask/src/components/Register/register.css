@@ -1,0 +1,34 @@
+h2 {
+    text-align: center;
+    font-size: 40px;
+}
+.form-register {
+    padding: 40px;
+    border-radius: 4px;
+    margin: auto;
+    width: 100%;
+    max-width: 300px;
+}
+
+.form-register .flex-1 {
+    margin-top: 20px;
+}
+
+.form-register button {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    background: #FF5252;
+    color: #FFF;
+    text-transform: uppercase;
+    padding: 20px;
+    border-radius: 2px;
+    transition: .4s ease all;
+    cursor: pointer;
+}
+
+
+.form-register button:hover {
+    background: #fa4646;
+}

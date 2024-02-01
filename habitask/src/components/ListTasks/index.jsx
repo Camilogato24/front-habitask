@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Menu from "../Menu/index";
 import useUserStore from "../../store/store";
 import DataTable from '../DataTable/index';
-
+import "./listTasks.css";
 
 const ListTasks = () => {
   const { tareas, obtenerTareas } = useUserStore();
@@ -16,7 +16,11 @@ const ListTasks = () => {
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Título', accessor: 'titulo' },
-    { Header: 'Estado', accessor: 'estado' },
+    { Header: 'Estado', accessor: 'estado', Cell: ({ value }) => (value ? 'Activa' : 'Inactiva') },
+    { Header: 'Fecha de Creación', accessor: 'fecha_creacion' },
+    { Header: 'Fecha de Completado', accessor: 'fecha_completado' },
+    { Header: 'Creador ID', accessor: 'usuario_creador_id' },
+    { Header: 'Asignado ID', accessor: 'usuario_asignado_id' },
   ];
   let parsedTasks = [];
   try {

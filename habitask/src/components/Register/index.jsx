@@ -2,6 +2,8 @@
 import React from "react";
 import useUserStore from "../../store/store";
 import Menulogout from "../MenuLogout/";
+import "./register.css";
+
 
 const Register = () => {
   const {
@@ -24,7 +26,7 @@ const Register = () => {
     <div>
       <Menulogout />
       <h2>Register</h2>
-      <form className="mt-6" onSubmit={handleSubmit}>
+      <form className="form-register" onSubmit={handleSubmit}>
         <div className="flex-1">
           <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
             Nombre
@@ -51,7 +53,7 @@ const Register = () => {
           />
         </div>
 
-        <div className="w-full mt-6">
+        <div className="flex-1 mt-6">
           <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
             Contraseña
           </label>

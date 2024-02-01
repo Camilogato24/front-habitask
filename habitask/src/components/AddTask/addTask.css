@@ -1,0 +1,36 @@
+.form-addTask {
+  margin: auto;
+  padding: 40px;
+}
+
+.form-addTask .flex-1 {
+  margin-top: 20px;
+}
+
+.form-addTask button {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  background: #ff5252;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  border-radius: 2px;
+  transition: 0.4s ease all;
+  cursor: pointer;
+}
+
+.form-addTask button:hover {
+  background: #fa4646;
+}
+
+#seleccion {
+    margin-left: 10px;
+    text-transform: uppercase;
+    background: #ff5252;
+    border-radius: 2px;
+    transition: 0.4s ease all;
+    color: #FFF;
+    padding: 10px;
+}

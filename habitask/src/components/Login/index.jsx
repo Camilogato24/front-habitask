@@ -5,7 +5,8 @@ import Menulogout from "../MenuLogout/";
 import "./login.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { ifError } from "../../helpers/index";
+ 
 const Login = () => {
   const {
     resetForm,
@@ -21,7 +22,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginUser();
-    console.log(mensaje);
     showToast(
       mensaje,
       {
@@ -37,13 +37,6 @@ const Login = () => {
     resetForm();
   };
 
-  const ifError = (mensaje) => {
-    if (mensaje == "Login exitoso") {
-      return "success";
-    } else {
-      return "error";
-    }
-  };
   // Lógica de inicio de sesión
   return (
     <div className="container">

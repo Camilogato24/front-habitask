@@ -3,9 +3,8 @@ import React from "react";
 import useUserStore from "../../store/store";
 import Menulogout from "../MenuLogout/";
 import "./login.css";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ifError } from "../../helpers/index";
+import { Toaster, toast } from 'sonner'
  
 const Login = () => {
   const {
@@ -16,24 +15,13 @@ const Login = () => {
     setEmail,
     setContrasena,
     loginUser,
-    showToast,
   } = useUserStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginUser();
-    showToast(
-      mensaje,
-      {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      },
-      ifError(mensaje)
-    );
+    toast(mensaje)
+    console.log(mensaje);
     resetForm();
   };
 
@@ -77,7 +65,7 @@ const Login = () => {
             <button className="submit-btn">Login</button>
           </form>
         </div>
-        <ToastContainer />
+        <Toaster />
         {mensaje && <p>{mensaje}</p>}
       </div>
     </div>

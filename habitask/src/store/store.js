@@ -68,13 +68,15 @@ const useUserStore = create((set) => ({
       const responseParse = JSON.parse(data.body);
       if (responseParse.idUsuario) {
         const mensaje = responseParse.mensaje;
+        console.log(responseParse, "responseParse")
         useUserStore.getState().setMensaje(mensaje);
         sessionStorage.setItem("token", true);
         sessionStorage.setItem("userID", responseParse.idUsuario);
         window.location.href = "/list-tasks";
         // Puedes hacer otras acciones después de un inicio de sesión exitoso
       } else {
-        useUserStore.getState().setMensaje(responseParse.error);
+        console.error("Error al realizar la petición de login:");
+        useUserStore.getState().setMensaje("Error al realizar la petición de login");
       }
     } catch (error) {
       console.error("Error al realizar la petición de login:", error);
@@ -91,9 +93,10 @@ const useUserStore = create((set) => ({
   },
   tareas: [], // Aquí almacenaremos las tareas obtenidas
   setTareas: (tareas) => set({ tareas }),
-  setTarea: (nuevaTarea) => set((state) => ({
-    tareas: [...(state.tareas || []), nuevaTarea],
-  })),
+  setTarea: (nuevaTarea) =>
+    set((state) => ({
+      tareas: [...(state.tareas || []), nuevaTarea],
+    })),
   obtenerTareas: async () => {
     try {
       const tareas = "/tasks";
@@ -174,6 +177,34 @@ const useUserStore = create((set) => ({
       toast.error(message, options);
     }
     // Puedes agregar más tipos según tus necesidades
+  },
+  finalizarTarea: async (usuarioAsignadoId, idTarea) => {
+    const url = "/notificacion";
+    try {
+        // Hacer la llamada al servicio aquí
+        const response = await fetch(URL_ENDPOINT + url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ usuario_asignado_id: usuarioAsignadoId, idTarea: idTarea }),
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Notificación enviada y tarea actualizada correctamente:', result);
+          useUserStore.getState().setMensaje("Notificación enviada y tarea actualizada correctamente");
+          // Puedes actualizar otros estados según sea necesario
+        } else {
+          console.error('Error al enviar notificación:', response.statusText);
+          useUserStore.getState().setMensaje("Error al enviar notificación");
+          // Puedes manejar errores y actualizar estados correspondientes
+        }
+      } catch (error) {
+        console.error('Error en la llamada al servicio:', error);
+        useUserStore.getState().setMensaje("Error en la llamada al servicio");
+        // Puedes manejar errores y actualizar estados correspondientes
+      }
   },
 }));
 

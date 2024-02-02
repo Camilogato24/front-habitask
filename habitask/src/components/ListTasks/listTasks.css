@@ -1,24 +1,8 @@
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
 
-th,
-td {
-  border: 1px solid #D3DCEC;
-  text-align: left;
-  padding: 8px;
-}
-
-th {
-  background-color: #D3DCEC;
-}
-
-@media (max-width: 600px) {
-  th,
-  td {
-    display: block;
-    width: 100%;
-  }
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Crea 4 columnas de igual ancho */
+  gap: 16px; /* Espacio entre las celdas */
+  max-width: 1100px; /* Establece el ancho máximo */
+  margin: 0 auto; /* Centra el contenedor */
 }

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import Menu from "../Menu/index";
 import useUserStore from "../../store/store";
-import DataTable from '../DataTable/index';
+import Card from "../Card/index";
 import "./listTasks.css";
 
 const ListTasks = () => {
@@ -13,18 +13,11 @@ const ListTasks = () => {
 
     getList();
   }, []);
-  const columns = [
-    { Header: 'ID', accessor: 'id' },
-    { Header: 'Título', accessor: 'titulo' },
-    { Header: 'Estado', accessor: 'estado', Cell: ({ value }) => (value ? 'Activa' : 'Inactiva') },
-    { Header: 'Fecha de Creación', accessor: 'fecha_creacion' },
-    { Header: 'Fecha de Completado', accessor: 'fecha_completado' },
-    { Header: 'Creador ID', accessor: 'usuario_creador_id' },
-    { Header: 'Asignado ID', accessor: 'usuario_asignado_id' },
-  ];
+
   let parsedTasks = [];
   try {
     parsedTasks = tareas && tareas.body ? JSON.parse(tareas.body) : [];
+    console.log(parsedTasks, "vsdfsdz");
   } catch (error) {
     console.error("Error parsing JSON:", error);
   }
@@ -33,7 +26,20 @@ const ListTasks = () => {
     <div>
       <Menu />
       <h2>List tasks</h2>
-      {parsedTasks.length > 0 && <DataTable columns={columns} data={parsedTasks} />}
+      {parsedTasks.length > 0 && (
+        <div className="card-list">
+        {parsedTasks.map((item, key) => (
+          <Card
+            key={key}
+            id={item.id}
+            titulo={item.titulo}
+            estado={item.estado}
+            fechaCreacion={item.fecha_creacion}
+            fechaCompletado={item.fecha_completado}
+          />
+        ))}
+      </div>
+      )}
     </div>
   );
 };
